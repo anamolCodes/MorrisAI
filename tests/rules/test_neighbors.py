@@ -78,8 +78,17 @@ def test_adjacency_is_symmetric():
 
 @pytest.mark.parametrize(
     "invalid_index",
-    (-1, 23, 100, "0", 0.0, None, True, False),
+    (-1, 23, 100),
 )
-def test_invalid_indices_are_rejected(invalid_index):
-    with pytest.raises((IndexError, TypeError)):
+def test_out_of_range_indices_raise_index_error(invalid_index):
+    with pytest.raises(IndexError):
+        neighbors(invalid_index)
+
+
+@pytest.mark.parametrize(
+    "invalid_index",
+    ("0", 0.0, None, True, False),
+)
+def test_non_integer_indices_raise_type_error(invalid_index):
+    with pytest.raises(TypeError):
         neighbors(invalid_index)
