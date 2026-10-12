@@ -1,0 +1,51 @@
+# My Static Estimation Function
+
+## 1. Features Used
+
+My improved static estimation function considers the difference in the number of pieces, completed mills, potential mills, and mobility.
+
+Piece difference helps determine which player has more pieces remaining. Completed mills identify lines of three pieces of the same color. Potential mills identify lines containing two pieces of the same color and one empty location. Mobility measures how many legal successor positions each player can generate.
+
+## 2. Why I Selected These Features
+
+The original opening evaluation only considers the difference in piece counts. It does not distinguish between positions with different strategic opportunities.
+
+Completed mills and potential mills help the evaluation recognize useful piece arrangements. Mobility helps distinguish positions where a player has many legal moves from positions where movement is restricted.
+
+## 3. How the Features Are Combined
+
+All scores are calculated from White's perspective. Positive scores favor White, while negative scores favor Black.
+
+The original opening evaluation is:
+
+E(b) = W - B
+
+The original midgame/endgame evaluation is:
+
+E(b) = 1000(W - B) - M_B
+
+The improved opening evaluation is:
+
+E(b) = 1000(W - B) + 40(C_W - C_B) + 20(P_W - P_B)
+
+The improved midgame/endgame evaluation is:
+
+E(b) = 1000(W - B) + 40(C_W - C_B) + 20(P_W - P_B) + 2(M_W - M_B)
+
+Here, W and B are the numbers of White and Black pieces, C_W and C_B are their completed-mill counts, P_W and P_B are their potential-mill counts, and M_W and M_B are their legal successor-position counts.
+
+The game-phase evaluation also checks terminal conditions, including whether a player has two or fewer pieces or has no legal moves. These conditions take priority over the ordinary positional score.
+
+## 4. Why the Improved Evaluation May Be Better
+
+The improved function considers more information about the board than the original piece-count evaluation. It can distinguish positions with equal piece counts but different mill opportunities and mobility.
+
+The weights determine how much each feature contributes to the final score. The improved function must be tested against the original evaluation to determine whether it actually selects stronger moves.
+
+## 5. Comparison Examples
+
+This section will include at least two tested board positions where the improved evaluation selects a different move from the original evaluation.
+
+For each example, I will record the input board, search depth, original selected move, improved selected move, evaluation results, and why I prefer the improved move.
+
+These examples will be completed after the search programs are implemented and tested.
